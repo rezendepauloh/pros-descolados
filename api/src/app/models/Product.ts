@@ -24,9 +24,21 @@ export const Product = model('Product', new Schema({
         required: true,
         type: [{
             product: {
-                type: Schema.Types.ObjectId,
+                type: String,
+                enum: ['CAMISA', 'ACTION_FIGURE', 'CHAPEU', 'QUADRO', 'BRINCO', 'ANEL'],
+                default: 'CAMISA',
                 required: true,
-                ref: 'Type',
+            },
+            shirtSize: {
+                type: String,
+                enum: ['BABY_LOCK', 'P', 'M', 'G', 'GG', 'XG'],
+                default: '',
+                required: false,
+            },
+            quantity: {
+                type: Number,
+                default: 1,
+                required: true,
             },
         }]
     },

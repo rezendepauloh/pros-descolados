@@ -1,16 +1,18 @@
 import { Request, Response } from 'express';
 import { Product } from '../../models/Product';
-import { io } from '../../../index';
 
 export async function createProduct(req: Request, res: Response) {
     try {
 
-        console.log(req.file);
-        console.log(req.body);
+        //console.log(req.file);
+        //console.log(req.body);
 
         //Um ? no req.file por causa do TypeScript, se vier, ele será do tipo File
         const imagePath = req.file?.filename;
-        const { name, description, price, category, types, createdAt } = req.body;
+        const { name, description, price, category, types } = req.body;
+
+        //console.log(types);
+        //[{"product":"CAMISA","shirtSize":"M","quantity":"8"},{"product":"CAMISA","shirtSize":"P","quantity":"6"}]
 
         //tratamento da requisição enviada
         if (!name) {
@@ -33,13 +35,7 @@ export async function createProduct(req: Request, res: Response) {
 
         if (!types) {
             return res.status(400).json({
-                error: 'Types is required'
-            });
-        }
-
-        if (!createdAt) {
-            return res.status(400).json({
-                error: 'CreatedAt is required'
+                error: 'Type is required'
             });
         }
 
@@ -50,13 +46,8 @@ export async function createProduct(req: Request, res: Response) {
             imagePath,
             price: Number(price),
             category,
-            types,
-            createdAt,
+            types: types ? JSON.parse(types) : []
         });
-        const typeDetails = await product.populate('types.type');
-
-        //Abre o canal de emissão do websocket
-        io.emit('type@new', typeDetails);
 
         //o status 201 é "tudo certo" com a adição que seu recurso foi criado (usado para criação)
         res.status(201).json(product);
