@@ -20,16 +20,15 @@ export const Product = model('Product', new Schema({
         required: true,
         ref: 'Category',
     },
-    shirtSize: {
-        type: String,
-        enum: ['BABY_LOCK', 'P', 'M', 'G', 'GG', 'XG'],
-        default: 'M',
-        required: false,
-    },
-    quantity: {
-        type: Number,
-        default: 1,
+    types: {
         required: true,
+        type: [{
+            product: {
+                type: Schema.Types.ObjectId,
+                required: true,
+                ref: 'Type',
+            },
+        }]
     },
     createdAt: {
         type: Date,
