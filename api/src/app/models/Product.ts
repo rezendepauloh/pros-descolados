@@ -22,7 +22,7 @@ export const Product = model('Product', new Schema({
     },
     shirtSize: {
         type: String,
-        enum: ['BABY_LOCK', 'P', 'M', 'G', 'GG'],
+        enum: ['BABY_LOCK', 'P', 'M', 'G', 'GG', 'XG'],
         default: 'M',
         required: false,
     },

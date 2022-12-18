@@ -14,7 +14,8 @@ export const io = new Server(server);
 
 mongoose.set('strictQuery', false);
 
-mongoose.connect('mongodb://0.0.0.0:27017/');
+//https://stackoverflow.com/questions/46523321/mongoerror-connect-econnrefused-127-0-0-127017
+mongoose.connect('mongodb://0.0.0.0:27017/prosdescolados');
 const database = mongoose.connection;
 
 database.on('error', (error) => {
@@ -46,36 +47,5 @@ app.listen(port, () => {
     console.log(`🚀 Server is running on http://localhost:${port}`);
 });
 
-//https://stackoverflow.com/questions/46523321/mongoerror-connect-econnrefused-127-0-0-127017
-// mongoose.connect('mongodb://0.0.0.0:27017/')
-//     .then(() => {
-
-//         console.log('Conectado ao Mongo');
-//         const port = 3001;
-
-//         //Liberando os headers para consumo da api pelos app e fe
-//         app.use((req, res, next) => {
-//             res.setHeader('Access-Control-Allow-Origin', '*');
-//             res.setHeader('Access-Control-Allow-Methods', '*'); //Wildcard * (libera tudo)
-//             res.setHeader('Access-Control-Allow-Headers', '*');
-
-//             next();
-//         });
-
-//         //Para que ao acessar a pasta uploads, ser sempre estático
-//         app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
-
-//         //Por conta do HTTP, precisamos passar o use do express de json ANTES das rotas
-//         app.use(express.json());
-
-//         //Usando as rotas
-//         app.use(router);
-
-//         server.listen(port, () => {
-//             console.log(`🚀 Server is running on http://localhost:${port}`);
-//         });
-
-//     })
-//     .catch((err) => console.log(`Erro ao conectar no Mongo DB. Erro: ${err}`));
 
 
